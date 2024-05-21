@@ -7,7 +7,7 @@ const createProductIntoDB = async (product: IProduct) => {
 };
 
 const getAllProductsFromDB = async (searchTerm?: string) => {
-    const result = await Product.find(searchTerm === null ? {}:{
+    const result = await Product.find(searchTerm === null ? {} : {
         $or: [
             { name: { $regex: searchTerm, $options: 'i' } },
             { description: { $regex: searchTerm, $options: 'i' } },
@@ -23,12 +23,12 @@ const getSingleProductFromDB = async (id: string) => {
 };
 
 const updateProductFromDB = async (productId: string, product: IProduct) => {
-    const result = await Product.findByIdAndUpdate(productId, product, {new: true});
+    const result = await Product.findByIdAndUpdate(productId, product, { new: true });
     return result;
 };
 
 const deleteProductFromDB = async (productId: string) => {
-    const result = await Product.findByIdAndDelete(productId);
+    const result = await Product.deleteOne({ _id: productId });
     return result;
 };
 
