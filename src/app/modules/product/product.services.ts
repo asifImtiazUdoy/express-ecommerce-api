@@ -7,7 +7,7 @@ const createProductIntoDB = async (product: IProduct) => {
 };
 
 const getAllProductsFromDB = async (searchTerm?: string) => {
-    const result = await Product.find({
+    const result = await Product.find(searchTerm === null ? {}:{
         $or: [
             { name: { $regex: searchTerm, $options: 'i' } },
             { description: { $regex: searchTerm, $options: 'i' } },
